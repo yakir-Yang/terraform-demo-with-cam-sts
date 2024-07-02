@@ -1,8 +1,8 @@
 output "instance_id" {
-  value = tencentcloud_instance.my_instance.id
+  value = tencentcloud_instance.cvm_atlantis_terraform.id
 }
 
 output "public_ip" {
-  value = tencentcloud_instance.my_instance.public_ip
+  value = tencentcloud_instance.cvm_atlantis_terraform.public_ip
 }
 
