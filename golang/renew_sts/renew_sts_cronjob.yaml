@@ -15,6 +15,6 @@ spec:
             - name: VAULT_ADDR
               value: "http://vault:8200"  # 替换为你的 Vault 地址
             - name: VAULT_TOKEN
-              value: "xxxxx"  # 替换为你的 Vault 令牌
+              value: "xxx"  # 替换为你的 Vault 令牌
           restartPolicy: OnFailure
 

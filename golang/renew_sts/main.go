@@ -42,7 +42,7 @@ func main() {
     if err != nil {
         log.Fatalf("Failed to get STS: %v", err)
     }
-    log.Printf("Successfully retrieved STS from Tencent Cloud. STS: %s", stsToken)
+    log.Printf("Successfully retrieved STS from Tencent Cloud.\nSTS SessionToken: %s\nTmpSecretID: %s\nTmpSecretKey: %s\nExpiration: %s", stsToken.Credentials.SessionToken, stsToken.Credentials.TmpSecretID, stsToken.Credentials.TmpSecretKey, stsToken.Expiration)
 
     // 将 STS 写回到 Vault 中
     err = putSTS(client, stsVaultPath, stsToken)
@@ -78,7 +78,7 @@ func getCredentials(client *api.Client, path string) (string, string, error) {
 }
 
 // 使用 AK/SK 换取 STS
-func getSTS(ak, sk string) (string, error) {
+func getSTS(ak, sk string) (*sts.CredentialResult, error) {
     c := sts.NewClient(
         ak,
         sk,
@@ -102,17 +102,20 @@ func getSTS(ak, sk string) (string, error) {
     // 请求临时密钥
     res, err := c.GetCredential(opt)
     if err != nil {
-        return "", err
+        return nil, err
     }
 
     // 返回 STS Token
-    return res.Credentials.SessionToken, nil
+    return res, nil
 }
 
 // 将 STS 写回到 Vault 中
-func putSTS(client *api.Client, path, sts string) error {
+func putSTS(client *api.Client, path string, sts *sts.CredentialResult) error {
     data := map[string]interface{}{
-        "sts": sts,
+        "token":        sts.Credentials.SessionToken,
+        "tmpSecretId":  sts.Credentials.TmpSecretID,
+        "tmpSecretKey": sts.Credentials.TmpSecretKey,
+        "timestamp":    time.Now().Format(time.RFC3339),
     }
     _, err := client.Logical().Write(path, data)
     if err != nil {
@@ -121,4 +124,3 @@ func putSTS(client *api.Client, path, sts string) error {
 
     return nil
 }
-

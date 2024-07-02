@@ -10,8 +10,8 @@ COPY . .
 # Download necessary Go modules
 RUN go mod download
 
-# Build the Go application
-RUN go build -o renew_sts .
+# Build the Go binary for Linux
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/bin/renew_sts
 
 # Start a new stage from scratch
 FROM alpine:latest
