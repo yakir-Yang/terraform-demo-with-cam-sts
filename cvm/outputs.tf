@@ -1,8 +1,8 @@
 output "instance_id" {
-  value = tencentcloud_instance.my_instance[0].id
+  value = tencentcloud_instance.my_instance.id
 }
 
 output "public_ip" {
-  value = tencentcloud_instance.my_instance[0].public_ip
+  value = tencentcloud_instance.my_instance.public_ip
 }
 
