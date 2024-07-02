@@ -17,4 +17,11 @@ projects:
     autoplan:
       when_modified: ["*.tf", "*.tfvars"]
       enabled: true
+  - name: clb
+    dir: clb
+    workspace: default
+    workflow: custom-workflow
+    autoplan:
+      when_modified: ["*.tf", "*.tfvars"]
+      enabled: true
 
