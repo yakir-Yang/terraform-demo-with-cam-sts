@@ -3,11 +3,11 @@ workflows:
   custom-workflow:
     plan:
       steps:
-        - run: bash ../my_cicd.sh init
-        - run: bash ../my_cicd.sh plan
+        - run: bash ../tools/my_cicd.sh init
+        - run: bash ../tools/my_cicd.sh plan
     apply:
       steps:
-        - run: bash ../my_cicd.sh apply
+        - run: bash ../tools/my_cicd.sh apply
 
 projects:
   - name: cvm
