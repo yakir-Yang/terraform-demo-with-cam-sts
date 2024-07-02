@@ -1,16 +1,14 @@
-resource "tencentcloud_instance" {
-  count         = 1
-  instance_name = var.instance_name
-  instance_type = var.instance_type
-  image_id      = var.image_id
-  system_disk {
-    disk_type = "CLOUD_PREMIUM"
-    disk_size = 50
-  }
-  internet_access {
-    internet_charge_type = "TRAFFIC_POSTPAID_BY_HOUR"
-    internet_max_bandwidth_out = 100
-    public_ip_assigned = true
+resource "tencentcloud_instance" "my_instance" {
+  instance_name = "example"
+  availability_zone = "ap-guangzhou-3"
+  instance_type = "S3.MEDIUM4"
+  image_id = "img-9qrfy1xt" # TencentOS Server 3.2 (Final)
+  system_disk_type = "CLOUD_BASIC"
+  system_disk_size = "50"
+  internet_charge_type = "BANDWIDTH_PREPAID"
+  internet_max_bandwidth_out = "10"
+
+  lifecycle {
+    ignore_changes = [internet_max_bandwidth_out]
   }
 }
-

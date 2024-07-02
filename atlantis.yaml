@@ -5,12 +5,16 @@ workflows:
       steps:
         - run: echo "Fetching temporary credentials..."
         - run: echo "Setting environment variables..."
+        - run: export TF_VAR_secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd
+        - run: export TF_VAR_secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN
         - init
         - plan
     apply:
       steps:
         - run: echo "Fetching temporary credentials..."
         - run: echo "Setting environment variables..."
+        - run: export TF_VAR_secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd
+        - run: export TF_VAR_secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN
         - apply
 
 projects:
