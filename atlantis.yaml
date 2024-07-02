@@ -3,20 +3,11 @@ workflows:
   custom-workflow:
     plan:
       steps:
-        - run: echo "Fetching temporary credentials..."
-        - run: echo "Setting environment variables..."
-        - run: export TF_VAR_secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd
-        - run: export TF_VAR_secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN
-        - run: terraform init -input=false -upgrade
-        # - run: terraform plan -var "secret_id=$TF_VAR_secret_id" -var "secret_key=$TF_VAR_secret_key"
-        - run: terraform plan -var "secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd" -var "secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN"
+        - run: bash ../my_cicd.sh init
+        - run: bash ../my_cicd.sh plan
     apply:
       steps:
-        - run: echo "Fetching temporary credentials..."
-        - run: echo "Setting environment variables..."
-        - run: export TF_VAR_secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd
-        # - run: export TF_VAR_secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN
-        - run: terraform apply -auto-approve -var "secret_id=IKID9i38xZw61g8MN9zhheNr66rQmCXguERd" -var "secret_key=7ze9RULg6i7Zt3DEzby5xZv3FG6iAPTN"
+        - run: bash ../my_cicd.sh apply
 
 projects:
   - name: cvm
