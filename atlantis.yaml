@@ -3,8 +3,8 @@ workflows:
   custom-workflow:
     plan:
       steps:
-        - run: bash ../tools/my_cicd.sh init
-        - run: bash ../tools/my_cicd.sh plan
+        - run: bash ../tools/my_cicd_based_on_cvm.sh init
+        - run: bash ../tools/my_cicd_based_on_cvm.sh plan
     apply:
       steps:
         - run: bash ../tools/my_cicd.sh apply
