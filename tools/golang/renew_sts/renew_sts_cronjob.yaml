@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renew-sts-cronjob
+spec:
+  schedule: "*/30 * * * *"  # 每分钟运行一次
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: renew-sts
+            image: yakirkkyang/goto-renew-sts:latest
+            env:
+            - name: VAULT_ADDR
+              value: "http://vault:8200"  # 替换为你的 Vault 地址
+            - name: VAULT_TOKEN
+              value: "xxx"  # 替换为你的 Vault 令牌
+          restartPolicy: OnFailure
+
